@@ -38,7 +38,7 @@ def c_str(oborud):
         return oborud
 
 def main_device(m_d):
-    headers = [findall(r"\d\. .+", item)[0] for item in m_d if len(findall(r"\d\. .+", item))]
+    headers = [findall(r"\d+\. .+", item)[0] for item in m_d if len(findall(r"\d+\. .+", item))]
     return headers
 
 def reg_chast(strochka, vent):
@@ -87,7 +87,7 @@ def addon(addons):
 
 def infos(file):
     i = [item for item in process(file).split('\n') if len(item)]
-    st.write(i)
+    # st.write(i)
     aflag = False
     nindex = i.index("Название:")+1
     dindex = i.index("Дополнительное оборудование:")+1
