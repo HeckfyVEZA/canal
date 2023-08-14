@@ -1,7 +1,7 @@
 from itertools import dropwhile, takewhile
 from re import findall, IGNORECASE
 from docx2txt import process
-
+import streamlit as st
 def sashQUA(main_system_name:str, the_mask = r'\d?[A-Za-zА-Яа-яЁё]\D?\D?\D?\D?\S?\S?\S?\S?\d{1,}[А-Яа-яЁё]?'):
     all_system_names = []
     for system_name in main_system_name.replace("-", " - ").split(','):
@@ -87,6 +87,7 @@ def addon(addons):
 
 def infos(file):
     i = [item for item in process(file).split('\n') if len(item)]
+    st.write(i)
     aflag = False
     nindex = i.index("Название:")+1
     dindex = i.index("Дополнительное оборудование:")+1
