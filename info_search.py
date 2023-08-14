@@ -89,7 +89,7 @@ def new_itog(full):
     for item in full:
         st.write(item)
         if "ВКО" in item[1] or "ФКО" in item[1]:
-            ooo = item[1].split('КО')[1]
+            ooo = item[1].split('КО-')[1]
             if len(ooo.split('-'))==2:
                 item[1]+='-4'
     return full
