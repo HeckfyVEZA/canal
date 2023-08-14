@@ -77,7 +77,7 @@ def main_devs(headers, main_devices):
 def addon(addons):
     ado = {'addons':[]}
     for item in addons:
-        if 'вентилятор' in item and 'да' in item:
+        if 'вент' in item and 'да' in item:
             ado['частотник/регулятор'] = True
         elif ': ' in item and len(findall(r"(\d+) ?шт\.?", item)):
             ado['addons'].append([c_str(item.split(': ')[1].split()[0]), findall(r"(\d+) ?шт\.?", item)[0] if len(findall(r"(\d+) ?шт\.?", item)) else 1])
