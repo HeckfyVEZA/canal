@@ -19,7 +19,8 @@ all_noms = []
 st.session_state.uploaded_files = st.file_uploader('TECHNICAL SHEETS', accept_multiple_files=True)
 p = 0
 lp = len(st.session_state.uploaded_files)
-pr_bar = st.progress(p, '')
+if lp:
+    pr_bar = st.progress(p, '')
 exp = st.expander('Системы')
 for file in st.session_state.uploaded_files:
     p+=1
@@ -32,8 +33,10 @@ for file in st.session_state.uploaded_files:
         exp.markdown('---')
     except:
         unprocessed.append(file.name)
-    pr_bar.progress(p/lp, f"Обрабатывается {file.name}")
-pr_bar.progress(p/lp, 'Готово')
+    if lp:
+        pr_bar.progress(p/lp, f"Обрабатывается {file.name}")
+if lp:
+    pr_bar.progress(p/lp, 'Готово')
 if len(unprocessed):
     st.markdown('<h3>Необработанные файлы</h3>', unsafe_allow_html=True)
     for upcs in unprocessed:
