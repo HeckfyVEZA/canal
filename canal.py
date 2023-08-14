@@ -38,9 +38,9 @@ for file in st.session_state.uploaded_files:
 if lp:
     pr_bar.progress(p/lp, 'Готово')
 if len(unprocessed):
-    st.markdown('<h3>Необработанные файлы</h3>', unsafe_allow_html=True)
+    neob = st.expander('Необработанные файлы')
     for upcs in unprocessed:
-        st.markdown(f"<h5>{upcs}</h5>", unsafe_allow_html=True)
+        neob.markdown(f"<h4>{upcs}</h4>", unsafe_allow_html=True)
 all_nomenclature_names = list(set(list(map(lambda x: x[1], all_noms))))
 gnoms = grouping(all_noms)
 if lp:
