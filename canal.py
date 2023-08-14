@@ -4,6 +4,7 @@ from info_search import infos
 from groupy import grouping
 from check_file import check
 st.set_page_config(layout='wide')
+unprocessed = []
 def to_excel(df, HEADER=False, START=1):
     output = __import__("io").BytesIO()
     writer = ExcelWriter(output, engine='xlsxwriter')
@@ -22,14 +23,21 @@ pr_bar = st.progress(p, '')
 exp = st.expander('Системы')
 for file in st.session_state.uploaded_files:
     p+=1
-    curinfo = infos(file)
-    all_noms+=curinfo
-    exp.markdown(f'<h2>Система {curinfo[0][0]}</h2>', unsafe_allow_html=True)
-    for ci in curinfo:
-        exp.markdown(f'<p><h4>{ci[1]}</h4>   <i>{ci[-1]} шт.</i></p>', unsafe_allow_html=True)
-    exp.markdown('---')
+    try:
+        curinfo = infos(file)
+        all_noms+=curinfo
+        exp.markdown(f'<h2>Система {curinfo[0][0]}</h2>', unsafe_allow_html=True)
+        for ci in curinfo:
+            exp.markdown(f'<p><h4>{ci[1]}</h4>   <i>{ci[-1]} шт.</i></p>', unsafe_allow_html=True)
+        exp.markdown('---')
+    except:
+        unprocessed.append(file.name)
     pr_bar.progress(p/lp, f"Обрабатывается {file.name}")
 pr_bar.progress(p/lp, 'Готово')
+if len(unprocessed):
+    st.markdown('<h3>Необработанные файлы</h3>', unsafe_allow_html=True)
+    for upcs in unprocessed:
+        st.markdown(f"<h5>{upcs}</h5>", , unsafe_allow_html=True)
 all_nomenclature_names = list(set(list(map(lambda x: x[1], all_noms))))
 gnoms = grouping(all_noms)
 st.expander('Таблица').table(gnoms)
