@@ -43,7 +43,10 @@ if len(unprocessed):
         st.markdown(f"<h5>{upcs}</h5>", unsafe_allow_html=True)
 all_nomenclature_names = list(set(list(map(lambda x: x[1], all_noms))))
 gnoms = grouping(all_noms)
-st.expander('Таблица').table(gnoms)
-st.download_button(label='💾 Скачать файл для выгрузки в КП',data=to_excel(grouping(all_noms)), file_name= 'для кп.xls')
-st.download_button(label='💾 Скачать файл для выгрузки в КП (По системам)',data=to_excel(list(map(lambda x: [x[1], x[2], x[0]], all_noms))), file_name= 'для кп.xls')
-st.download_button(label='💾 Скачать проверочный файл',data=to_excel(DataFrame(check(all_noms)),START=0) ,file_name= 'проверка.xlsx')
+try:
+    st.expander('Таблица').table(gnoms)
+    st.download_button(label='💾 Скачать файл для выгрузки в КП',data=to_excel(grouping(all_noms)), file_name= 'для кп.xls')
+    st.download_button(label='💾 Скачать файл для выгрузки в КП (По системам)',data=to_excel(list(map(lambda x: [x[1], x[2], x[0]], all_noms))), file_name= 'для кп.xls')
+    st.download_button(label='💾 Скачать проверочный файл',data=to_excel(DataFrame(check(all_noms)),START=0) ,file_name= 'проверка.xlsx')
+except:
+    pass
