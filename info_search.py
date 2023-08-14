@@ -85,6 +85,14 @@ def addon(addons):
         #     ado['частотник/регулятор'] = False
     return ado
 
+def new_itog(full):
+    for item in full:
+        if "ВКО" in item[1] or "ФКО" in item[1]:
+            ooo = item[1].split('КО')[1]
+            if len(ooo.split('-'))==2:
+                item[1]+='-4'
+    return full
+
 def infos(file):
     i = [item for item in process(file).split('\n') if len(item)]
     # st.write(i)
@@ -121,5 +129,5 @@ def infos(file):
     citog+= [[name, item[0], int(item[1])*koef] for item in itogi['addons']['addons']]
     if aflag:
         citog+= [[name, item[0], int(item[1])*koef] for item in itogi["подобранные частотники"]]
-    return citog
+    return new_itog(citog)
 
