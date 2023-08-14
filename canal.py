@@ -12,7 +12,7 @@ def to_excel(df, HEADER=False, START=1):
     worksheet = writer.sheets['Sheet1']
     format1 = workbook.add_format({'num_format': '0.00'})
     worksheet.set_column('A:A', None, format1)
-    writer.save()
+    writer.close()
     return output.getvalue()
 all_noms = []
 st.session_state.uploaded_files = st.file_uploader('TECHNICAL SHEETS', accept_multiple_files=True)
