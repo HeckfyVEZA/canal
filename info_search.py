@@ -108,7 +108,10 @@ def infos(file):
     try:
         number = {'number': i[nindex], "amount": sashQUA(i[nindex])} # Номер системы
     except:
-        number = {'number': i[nindex], "amount": 1}
+        try:
+            number = {'number': i[nindex], "amount": len(i[nindex].split(',')}
+        except:
+            number = {'number': i[nindex], "amount": 1}
     main_devices = i[nindex+1:dindex]
     main_devices =  main_devs(main_device(main_devices), main_devices)
     addons = addon(i[dindex:nah])
