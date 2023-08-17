@@ -109,7 +109,7 @@ def infos(file):
         number = {'number': i[nindex], "amount": sashQUA(i[nindex])} # Номер системы
     except:
         try:
-            number = {'number': i[nindex], "amount": len(i[nindex].split(',')}
+            number = {'number': i[nindex], "amount": len(i[nindex].split(','))}
         except:
             number = {'number': i[nindex], "amount": 1}
     main_devices = i[nindex+1:dindex]
