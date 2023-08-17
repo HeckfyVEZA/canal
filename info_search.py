@@ -2,6 +2,17 @@ from itertools import dropwhile, takewhile
 from re import findall, IGNORECASE
 from docx2txt import process
 import streamlit as st
+
+def l_g(spis):
+    spis = list(sorted(spis, key=lambda x: x[1]))
+    ispis = [spis[0]]
+    for i in range(1, len(spis)):
+        if spis[i][1] != spis[i-1][1]:
+            ispis.append(spis[i])
+        else:
+            ispis[-1][2]+=spis[i][2]
+    return ispis
+
 def sashQUA(main_system_name:str, the_mask = r'\d?[A-Za-zА-Яа-яЁё]\D?\D?\D?\D?\S?\S?\S?\S?\d{1,}[А-Яа-яЁё]?'):
     all_system_names = []
     for system_name in main_system_name.replace("-", " - ").split(','):
@@ -133,5 +144,6 @@ def infos(file):
     citog+= [[name, item[0], int(item[1])*koef] for item in itogi['addons']['addons']]
     if aflag:
         citog+= [[name, item[0], int(item[1])*koef] for item in itogi["подобранные частотники"]]
+    citog = l_g(citog)
     return new_itog(citog)
 
