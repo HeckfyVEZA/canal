@@ -57,11 +57,8 @@ def reg_chast(strochka, vent):
     ch = choice[380] if "кварк" in vent.lower() else choice[220] if 'канал-вент' in vent.lower() else choice[int(findall(r'Uпит=~(\d+) В', strochka.replace(",","."))[0])]
     for item in ch:
         if item[0] >= float(findall(r'Ny=(\d+\.?\d*) кВт', strochka.replace(",","."))[0]) and item[1] > float(findall(r'Iпот=(\d+\.?\d*) A', strochka.replace(",","."))[0]):
-            itog = item[2]
-            break
-    else:
-        return "Подбор невозможен"
-    return itog
+            return item[2]
+    return "Подбор невозможен"
 
 def main_devs(headers, main_devices):
     new_headers = []
