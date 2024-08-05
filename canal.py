@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas as pd
 import streamlit as st
 from info_search import infos
 from groupy import grouping
