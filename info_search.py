@@ -1,7 +1,7 @@
 from itertools import dropwhile, takewhile
 from re import findall, IGNORECASE
 from docx2txt import process
-import streamlit as st
+
 
 def l_g(spis):
     spis = list(sorted(spis, key=lambda x: x[1]))
