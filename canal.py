@@ -1,4 +1,4 @@
-from pandas import DataFrame, ExcelWriter, set_option
+import pandas as pd
 import pandas as pd
 import streamlit as st
 from info_search import infos
@@ -11,8 +11,8 @@ st.set_page_config(layout='wide')
 unprocessed = []
 def to_excel(df, HEADER=False, START=1):
     output = __import__("io").BytesIO()
-    writer = ExcelWriter(output, engine='xlsxwriter')
-    DataFrame(df).to_excel(writer, index=False, header=HEADER,startrow=START, startcol=START, sheet_name='Sheet1')
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    pd.DataFrame(df).to_excel(writer, index=False, header=HEADER,startrow=START, startcol=START, sheet_name='Sheet1')
     workbook = writer.book
     worksheet = writer.sheets['Sheet1']
     format1 = workbook.add_format({'num_format': '0.00'})
@@ -55,7 +55,7 @@ if lp:
         st.expander('Таблица').table(gnoms)
         st.download_button(label='💾 Скачать файл для выгрузки в КП',data=to_excel(grouping(all_noms)), file_name= 'для кп.xls')
         st.download_button(label='💾 Скачать файл для выгрузки в КП (По системам)',data=to_excel(list(map(lambda x: [x[1], x[2], x[0]], all_noms))), file_name= 'для кп.xls')
-        st.download_button(label='💾 Скачать проверочный файл',data=to_excel(DataFrame(check(all_noms)),START=0) ,file_name= 'проверка.xlsx')
+        st.download_button(label='💾 Скачать проверочный файл',data=to_excel(pd.DataFrame(check(all_noms)),START=0) ,file_name= 'проверка.xlsx')
     except Exception as e:
         e
         pass
@@ -130,7 +130,7 @@ if lp:
                     question_df.append([df1['Unnamed: 3'][i], df1['Unnamed: 24'][i], df1['Unnamed: 39'][i], df1['Unnamed: 29'][i], df1['Unnamed: 29'][i]*df1['Unnamed: 24'][i]])
             elif df1['Unnamed: 3'][i].strip() != 'Товар' and type(df1['Unnamed: 39'][i]) != str:
                 question_df.append([df1['Unnamed: 3'][i], df1['Unnamed: 24'][i], 'Система не указана', df1['Unnamed: 29'][i], df1['Unnamed: 29'][i]*df1['Unnamed: 24'][i]])
-        final_df = pd.DataFrame(final_df)
+        final_df = pd.pd.DataFrame(final_df)
         final_df.drop_duplicates(subset=[0,1,2,3], inplace=True)
         final_df = final_df.sort_values(by=[2,0]).reset_index(drop=True)
         wb = opxl.Workbook()
